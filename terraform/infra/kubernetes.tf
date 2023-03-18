@@ -9,7 +9,7 @@ resource "azurerm_kubernetes_cluster" "metaflow_kubernetes" {
     vm_size             = "Standard_D2S_v3"
     enable_auto_scaling = true
     min_count           = 1
-    max_count           = 10
+    max_count           = 1
     vnet_subnet_id      = azurerm_subnet.metaflow_kubernetes_subnet.id
   }
   lifecycle {
@@ -34,12 +34,12 @@ resource "azurerm_kubernetes_cluster" "metaflow_kubernetes" {
 resource "azurerm_kubernetes_cluster_node_pool" "metaflow_kubernetes_compute_node_pool" {
   name                  = "taskworkers"
   kubernetes_cluster_id = azurerm_kubernetes_cluster.metaflow_kubernetes.id
-  vm_size               = "Standard_D4_v5"
+  vm_size               = "Standard_D2S_v3"
   node_count            = 1
   enable_auto_scaling   = true
   vnet_subnet_id        = azurerm_subnet.metaflow_kubernetes_subnet.id
-  min_count             = 1
-  max_count             = 50
+  min_count             = 0
+  max_count             = 1
 
   lifecycle {
     ignore_changes = [node_count]

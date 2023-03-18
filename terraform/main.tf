@@ -14,8 +14,9 @@ terraform {
     }
   }
   backend "azurerm" {
-    storage_account_name = "cybustfstate"
-    container_name       = "tfstate"
+    resource_group_name = "shared-resources"
+    storage_account_name = "sharedstoragecybus"
+    container_name       = "terraformstates"
     key                  = "metaflow-backend.tfstate"
     use_azuread_auth     = true
     subscription_id      = "aa67b63c-8c77-4c89-a0ac-f2ecc9d43d62"
