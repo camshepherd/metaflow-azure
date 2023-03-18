@@ -31,7 +31,7 @@ locals {
   metaflow_db_port = 5432
 
   # Airflow Related Options
-  airflow_version = "2.3.3"
+  airflow_version = ">=2.3.3"
   airflow_frenet_secret = "myverysecretvalue"
 }
 
@@ -42,6 +42,7 @@ locals {
 #
 variable "org_prefix" {
   type = string
+  default = "cybus"
 }
 
 variable "deploy_argo" {
