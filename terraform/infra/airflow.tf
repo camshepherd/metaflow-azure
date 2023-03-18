@@ -4,19 +4,19 @@
 
 # Hence `airflow_container` is not declared from top level and we set it in the locals here. 
 locals {
-    airflow_container = "airflow-logs"
+  airflow_container = "airflow-logs"
 }
 
 resource "azurerm_storage_container" "airflow_logs_container" {
   name                  = local.airflow_container
   storage_account_name  = azurerm_storage_account.metaflow_storage_account.name
   container_access_type = "private"
-  count = var.deploy_airflow ? 1 : 0
+  count                 = var.deploy_airflow ? 1 : 0
 }
 
 resource "azurerm_role_assignment" "airflow_storage_role_permissions" {
   scope                = azurerm_storage_container.airflow_logs_container[0].resource_manager_id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = azuread_service_principal.service_principal.id
-  count = var.deploy_airflow ? 1 : 0
+  count                = var.deploy_airflow ? 1 : 0
 }
